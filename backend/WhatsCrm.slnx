@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="WhatsCrm.Api.Tests/WhatsCrm.Api.Tests.csproj" />
+  <Project Path="WhatsCrm.Api/WhatsCrm.Api.csproj" />
+</Solution>

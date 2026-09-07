@@ -1,0 +1,43 @@
+:root {
+  color-scheme: light;
+  --cor-fundo: #f4f6f8;
+  --cor-superficie: #ffffff;
+  --cor-borda: #e2e5ea;
+  --cor-texto: #1a1d21;
+  --cor-texto-secundario: #6b7280;
+  --cor-primaria: #128c7e;
+  --cor-primaria-forte: #0d6b60;
+  --cor-primaria-fraca: #e6f4f2;
+  --cor-erro: #d92d20;
+  --cor-erro-fraca: #fdecea;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+button {
+  font-family: inherit;
+}
+
+.tela-carregando {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: var(--cor-texto-secundario);
+}

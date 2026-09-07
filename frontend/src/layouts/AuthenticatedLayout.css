@@ -1,0 +1,141 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--cor-fundo);
+}
+
+.layout__sidebar {
+  display: none;
+}
+
+.layout__header-mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: var(--cor-superficie);
+  border-bottom: 1px solid var(--cor-borda);
+  z-index: 10;
+}
+
+.layout__marca {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--cor-primaria);
+}
+
+.layout__conteudo {
+  flex: 1;
+  padding: 72px 16px 80px;
+  width: 100%;
+}
+
+.layout__nav-mobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: var(--cor-superficie);
+  border-top: 1px solid var(--cor-borda);
+  z-index: 10;
+}
+
+.layout__nav-mobile-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 0;
+  font-size: 0.7rem;
+  color: var(--cor-texto-secundario);
+  text-decoration: none;
+}
+
+.layout__nav-mobile-item--ativo {
+  color: var(--cor-primaria);
+}
+
+.layout__sair {
+  border: none;
+  background: transparent;
+  color: var(--cor-texto-secundario);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+@media (min-width: 768px) {
+  .layout__header-mobile,
+  .layout__nav-mobile {
+    display: none;
+  }
+
+  .layout__sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    flex-shrink: 0;
+    background: var(--cor-superficie);
+    border-right: 1px solid var(--cor-borda);
+    padding: 20px 12px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+
+  .layout__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 24px;
+    flex: 1;
+  }
+
+  .layout__nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: var(--cor-texto-secundario);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .layout__nav-item--ativo {
+    background: var(--cor-primaria-fraca);
+    color: var(--cor-primaria);
+    font-weight: 600;
+  }
+
+  .layout__usuario {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--cor-borda);
+    padding-top: 12px;
+    font-size: 0.85rem;
+  }
+
+  .layout__empresa {
+    color: var(--cor-texto-secundario);
+    font-size: 0.75rem;
+  }
+
+  .layout__conteudo {
+    padding: 32px;
+  }
+}
+
+@media (min-width: 1366px) {
+  .layout__conteudo {
+    padding: 40px 48px;
+  }
+}

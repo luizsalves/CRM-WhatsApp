@@ -1,0 +1,22 @@
+# Segredos locais
+.env
+*.env.local
+
+# .NET
+backend/**/bin/
+backend/**/obj/
+backend/**/*.user
+backend/**/TestResults/
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/*.local
+
+# Editores / SO
+.vs/
+.vscode/
+.idea/
+.DS_Store
+*.log
