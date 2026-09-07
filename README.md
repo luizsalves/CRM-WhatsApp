@@ -44,12 +44,19 @@ cp .env.example .env   # ajuste as senhas/segredos antes de subir
 docker compose up -d --build
 ```
 
-Tudo fica disponível atrás do Nginx em http://localhost:8080:
+Tudo fica disponível atrás do Nginx em http://localhost:8090:
 
-- Frontend: http://localhost:8080
-- API: http://localhost:8080/api
+- Frontend: http://localhost:8090
+- API: http://localhost:8090/api
 
-O Swagger só é exposto quando `ASPNETCORE_ENVIRONMENT=Development` (ajuste no `.env`) — em http://localhost:8080/swagger.
+O Swagger só é exposto quando `ASPNETCORE_ENVIRONMENT=Development` (ajuste no `.env`) — em http://localhost:8090/swagger.
+
+O projeto Docker Compose usa o nome `whatsapp-claude` (definido em `docker-compose.yml`) e a porta `8090`, para não colidir com outro WhatsCRM que já esteja rodando na sua máquina. Se ainda assim precisar de outro nome/porta:
+
+```bash
+docker compose -p outro-nome up -d --build   # muda o nome do projeto
+# ou defina HTTP_PORT=outra-porta no seu .env
+```
 
 ### Backend manualmente
 
