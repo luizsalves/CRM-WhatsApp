@@ -57,15 +57,6 @@
   outline-offset: 1px;
 }
 
-.auth-erro {
-  background: var(--cor-erro-fraca);
-  color: var(--cor-erro);
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 0.85rem;
-  margin-bottom: 16px;
-}
-
 .auth-botao {
   width: 100%;
   padding: 12px;

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WhatsCrm.Api.Data;
+using WhatsCrm.Api.Integrations.WhatsApp;
 using WhatsCrm.Api.Interfaces;
 using WhatsCrm.Api.Services;
 
@@ -48,6 +49,22 @@ public static class ServiceCollectionExtensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
                     ClockSkew = TimeSpan.FromMinutes(1)
                 };
+
+                // Clientes de WebSocket (SignalR) não conseguem enviar o header Authorization
+                // durante o handshake — o token vem via query string apenas para /hubs/*.
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        if (!string.IsNullOrEmpty(accessToken) && context.HttpContext.Request.Path.StartsWithSegments("/hubs"))
+                        {
+                            context.Token = accessToken;
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
         services.AddAuthorization();
@@ -62,7 +79,20 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IContatoService, ContatoService>();
+        services.AddScoped<ITagService, TagService>();
+        services.AddScoped<IWhatsappContaService, WhatsappContaService>();
+        services.AddScoped<IWebhookSignatureValidator, WebhookSignatureValidator>();
+        services.AddHttpClient<IWhatsAppCloudApiClient, WhatsAppCloudApiClient>();
+        services.AddScoped<IWebhookProcessingService, WebhookProcessingService>();
+        services.AddScoped<IConversaService, ConversaService>();
 
+        return services;
+    }
+
+    public static IServiceCollection AddWhatsCrmWhatsAppSettings(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<WhatsAppSettings>(configuration.GetSection(WhatsAppSettings.SectionName));
         return services;
     }
 

@@ -29,6 +29,11 @@ services:
       Jwt__Issuer: ${JWT_ISSUER:-WhatsCrm.Api}
       Jwt__Audience: ${JWT_AUDIENCE:-WhatsCrm.Client}
       Cors__AllowedOrigins__0: ${FRONTEND_ORIGIN:-http://localhost:8080}
+      WhatsApp__VerifyToken: ${WHATSAPP_VERIFY_TOKEN:?defina WHATSAPP_VERIFY_TOKEN no .env}
+      WhatsApp__AppSecret: ${WHATSAPP_APP_SECRET:?defina WHATSAPP_APP_SECRET no .env}
+      DataProtection__KeysPath: /app/keys
+    volumes:
+      - dataprotection_keys:/app/keys
 
   frontend:
     build:
@@ -52,3 +57,4 @@ services:
 
 volumes:
   postgres_data:
+  dataprotection_keys:

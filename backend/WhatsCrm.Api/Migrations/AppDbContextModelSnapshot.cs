@@ -22,6 +22,150 @@ namespace WhatsCrm.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("WhatsCrm.Api.Entities.Contato", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateOnly?>("DataNascimento")
+                        .HasColumnType("date")
+                        .HasColumnName("data_nascimento");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("email");
+
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("empresa_id");
+
+                    b.Property<string>("EmpresaNome")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("empresa_nome");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("nome");
+
+                    b.Property<string>("Observacoes")
+                        .HasColumnType("text")
+                        .HasColumnName("observacoes");
+
+                    b.Property<Guid?>("ResponsavelUsuarioId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("responsavel_usuario_id");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("telefone");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResponsavelUsuarioId");
+
+                    b.HasIndex("EmpresaId", "Telefone")
+                        .IsUnique();
+
+                    b.ToTable("contatos", (string)null);
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.ContatoTag", b =>
+                {
+                    b.Property<Guid>("ContatoId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("contato_id");
+
+                    b.Property<Guid>("TagId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tag_id");
+
+                    b.HasKey("ContatoId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("contato_tags", (string)null);
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.Conversa", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("ContatoId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("contato_id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("empresa_id");
+
+                    b.Property<int>("QuantidadeNaoLidas")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantidade_nao_lidas");
+
+                    b.Property<Guid?>("ResponsavelUsuarioId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("responsavel_usuario_id");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("status");
+
+                    b.Property<DateTimeOffset>("UltimaMensagemEm")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("ultima_mensagem_em");
+
+                    b.Property<string>("UltimaMensagemTexto")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("ultima_mensagem_texto");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<Guid>("WhatsappContaId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("whatsapp_conta_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResponsavelUsuarioId");
+
+                    b.HasIndex("WhatsappContaId");
+
+                    b.HasIndex("ContatoId", "WhatsappContaId")
+                        .IsUnique();
+
+                    b.HasIndex("EmpresaId", "UltimaMensagemEm");
+
+                    b.ToTable("conversas", (string)null);
+                });
+
             modelBuilder.Entity("WhatsCrm.Api.Entities.Empresa", b =>
                 {
                     b.Property<Guid>("Id")
@@ -70,6 +214,108 @@ namespace WhatsCrm.Api.Migrations
                         .HasFilter("cnpj IS NOT NULL");
 
                     b.ToTable("empresas", (string)null);
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.Mensagem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("ConversaId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("conversa_id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Direcao")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("direcao");
+
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("empresa_id");
+
+                    b.Property<DateTimeOffset?>("EnviadaEm")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("enviada_em");
+
+                    b.Property<DateTimeOffset?>("LidaEm")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("lida_em");
+
+                    b.Property<string>("ProviderMessageId")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("provider_message_id");
+
+                    b.Property<DateTimeOffset?>("RecebidaEm")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("recebida_em");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("status");
+
+                    b.Property<string>("Texto")
+                        .HasColumnType("text")
+                        .HasColumnName("texto");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("tipo");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProviderMessageId");
+
+                    b.HasIndex("ConversaId", "CreatedAt");
+
+                    b.ToTable("mensagens", (string)null);
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Cor")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("character varying(7)")
+                        .HasColumnName("cor");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("empresa_id");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)")
+                        .HasColumnName("nome");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId", "Nome")
+                        .IsUnique();
+
+                    b.ToTable("tags", (string)null);
                 });
 
             modelBuilder.Entity("WhatsCrm.Api.Entities.Usuario", b =>
@@ -133,6 +379,199 @@ namespace WhatsCrm.Api.Migrations
                     b.ToTable("usuarios", (string)null);
                 });
 
+            modelBuilder.Entity("WhatsCrm.Api.Entities.WebhookEvento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid?>("EmpresaId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("empresa_id");
+
+                    b.Property<string>("Payload")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("payload");
+
+                    b.Property<bool>("Processado")
+                        .HasColumnType("boolean")
+                        .HasColumnName("processado");
+
+                    b.Property<DateTimeOffset?>("ProcessedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("processed_at");
+
+                    b.Property<string>("ProviderEventId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("provider_event_id");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("tipo");
+
+                    b.Property<Guid?>("WhatsappContaId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("whatsapp_conta_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProviderEventId")
+                        .IsUnique();
+
+                    b.ToTable("webhook_eventos", (string)null);
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.WhatsappConta", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("AccessTokenCriptografado")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("access_token_criptografado");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("boolean")
+                        .HasColumnName("ativo");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("empresa_id");
+
+                    b.Property<string>("NumeroExibicao")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("numero_exibicao");
+
+                    b.Property<string>("PhoneNumberId")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("phone_number_id");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<string>("WabaId")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("waba_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.HasIndex("PhoneNumberId")
+                        .IsUnique();
+
+                    b.ToTable("whatsapp_contas", (string)null);
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.Contato", b =>
+                {
+                    b.HasOne("WhatsCrm.Api.Entities.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("WhatsCrm.Api.Entities.Usuario", "ResponsavelUsuario")
+                        .WithMany()
+                        .HasForeignKey("ResponsavelUsuarioId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Empresa");
+
+                    b.Navigation("ResponsavelUsuario");
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.ContatoTag", b =>
+                {
+                    b.HasOne("WhatsCrm.Api.Entities.Contato", "Contato")
+                        .WithMany("ContatoTags")
+                        .HasForeignKey("ContatoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WhatsCrm.Api.Entities.Tag", "Tag")
+                        .WithMany("ContatoTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Contato");
+
+                    b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.Conversa", b =>
+                {
+                    b.HasOne("WhatsCrm.Api.Entities.Contato", "Contato")
+                        .WithMany()
+                        .HasForeignKey("ContatoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("WhatsCrm.Api.Entities.Usuario", "ResponsavelUsuario")
+                        .WithMany()
+                        .HasForeignKey("ResponsavelUsuarioId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("WhatsCrm.Api.Entities.WhatsappConta", "WhatsappConta")
+                        .WithMany()
+                        .HasForeignKey("WhatsappContaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Contato");
+
+                    b.Navigation("ResponsavelUsuario");
+
+                    b.Navigation("WhatsappConta");
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.Mensagem", b =>
+                {
+                    b.HasOne("WhatsCrm.Api.Entities.Conversa", "Conversa")
+                        .WithMany("Mensagens")
+                        .HasForeignKey("ConversaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Conversa");
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.Tag", b =>
+                {
+                    b.HasOne("WhatsCrm.Api.Entities.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+                });
+
             modelBuilder.Entity("WhatsCrm.Api.Entities.Usuario", b =>
                 {
                     b.HasOne("WhatsCrm.Api.Entities.Empresa", "Empresa")
@@ -144,9 +583,35 @@ namespace WhatsCrm.Api.Migrations
                     b.Navigation("Empresa");
                 });
 
+            modelBuilder.Entity("WhatsCrm.Api.Entities.WhatsappConta", b =>
+                {
+                    b.HasOne("WhatsCrm.Api.Entities.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.Contato", b =>
+                {
+                    b.Navigation("ContatoTags");
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.Conversa", b =>
+                {
+                    b.Navigation("Mensagens");
+                });
+
             modelBuilder.Entity("WhatsCrm.Api.Entities.Empresa", b =>
                 {
                     b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("WhatsCrm.Api.Entities.Tag", b =>
+                {
+                    b.Navigation("ContatoTags");
                 });
 #pragma warning restore 612, 618
         }

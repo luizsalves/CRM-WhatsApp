@@ -1,0 +1,104 @@
+.contatos-topo {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.contatos-busca {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.contatos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contato-card {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contato-card__cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.contato-card__nome {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.contato-card__telefone {
+  color: var(--cor-texto-secundario);
+  font-size: 0.85rem;
+}
+
+.contato-card__acoes {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.contato-card__acoes button {
+  border: none;
+  background: transparent;
+  color: var(--cor-texto-secundario);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+}
+
+.tags-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: white;
+}
+
+.tag-badge button {
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.8rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.tag-adicionar {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.tag-adicionar select {
+  font-size: 0.75rem;
+  padding: 3px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--cor-borda);
+}
+

@@ -1,0 +1,192 @@
+.conversas-layout {
+  display: flex;
+  height: 75vh;
+  min-height: 420px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.conversas-lista-painel {
+  width: 100%;
+  border-right: 1px solid var(--cor-borda);
+  overflow-y: auto;
+  background: var(--cor-superficie);
+}
+
+.conversas-lista-painel.escondido-mobile {
+  display: none;
+}
+
+.conversa-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--cor-borda);
+  cursor: pointer;
+  text-align: left;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  width: 100%;
+}
+
+.conversa-item--ativa {
+  background: var(--cor-primaria-fraca);
+}
+
+.conversa-item__topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.conversa-item__nome {
+  font-weight: 600;
+}
+
+.conversa-item__hora {
+  font-size: 0.7rem;
+  color: var(--cor-texto-secundario);
+}
+
+.conversa-item__preview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.conversa-item__texto {
+  color: var(--cor-texto-secundario);
+  font-size: 0.85rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.conversa-item__badge {
+  background: var(--cor-primaria);
+  color: white;
+  border-radius: 999px;
+  min-width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  flex-shrink: 0;
+}
+
+.conversa-thread {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--cor-fundo);
+}
+
+.conversa-thread__cabecalho {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--cor-borda);
+  background: var(--cor-superficie);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.conversa-thread__voltar {
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: none;
+}
+
+.conversa-thread__mensagens {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.balao {
+  max-width: 75%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.balao--entrada {
+  align-self: flex-start;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+}
+
+.balao--saida {
+  align-self: flex-end;
+  background: var(--cor-primaria);
+  color: white;
+}
+
+.balao__status {
+  display: block;
+  font-size: 0.65rem;
+  opacity: 0.75;
+  margin-top: 2px;
+  text-align: right;
+}
+
+.conversa-thread__form {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--cor-borda);
+  background: var(--cor-superficie);
+}
+
+.conversa-thread__form input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 20px;
+}
+
+.conversa-vazia {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor-texto-secundario);
+}
+
+@media (max-width: 767px) {
+  .conversas-lista-painel {
+    border-right: none;
+  }
+
+  .conversa-thread {
+    display: none;
+  }
+
+  .conversa-thread.mostrar-mobile {
+    display: flex;
+  }
+
+  .conversa-thread__voltar {
+    display: inline;
+  }
+}
+
+@media (min-width: 768px) {
+  .conversas-lista-painel {
+    width: 320px;
+    flex-shrink: 0;
+  }
+}

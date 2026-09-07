@@ -37,6 +37,7 @@ public class ExceptionHandlingMiddleware
             UnauthorizedAppException => (HttpStatusCode.Unauthorized, exception.Message),
             ConflictAppException => (HttpStatusCode.Conflict, exception.Message),
             NotFoundAppException => (HttpStatusCode.NotFound, exception.Message),
+            WhatsAppApiException => (HttpStatusCode.BadGateway, exception.Message),
             _ => (HttpStatusCode.InternalServerError, "Ocorreu um erro inesperado. Tente novamente mais tarde.")
         };
 

@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using WhatsCrm.Api.Extensions;
+using WhatsCrm.Api.Hubs;
 using WhatsCrm.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +15,16 @@ builder.Services.AddControllers()
 builder.Services.AddWhatsCrmDatabase(builder.Configuration);
 builder.Services.AddWhatsCrmAuthentication(builder.Configuration);
 builder.Services.AddWhatsCrmServices();
+builder.Services.AddWhatsCrmWhatsAppSettings(builder.Configuration);
 builder.Services.AddWhatsCrmSwagger();
+builder.Services.AddSignalR();
+
+var dataProtectionKeysPath = builder.Configuration["DataProtection:KeysPath"];
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(
+        string.IsNullOrWhiteSpace(dataProtectionKeysPath)
+            ? Path.Combine(AppContext.BaseDirectory, "dataprotection-keys")
+            : dataProtectionKeysPath));
 
 builder.Services.AddCors(options =>
 {
@@ -22,9 +33,12 @@ builder.Services.AddCors(options =>
         var origins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
             ?? new[] { "http://localhost:5173" };
 
+        // AllowCredentials é necessário porque o cliente SignalR envia o negotiate
+        // com credentials: include (mesmo autenticando via token na query string).
         policy.WithOrigins(origins)
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -51,6 +65,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ConversationsHub>("/hubs/conversations");
 
 app.Run();
 

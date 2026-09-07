@@ -28,3 +28,10 @@ public class NotFoundAppException : AppException
     {
     }
 }
+
+public class WhatsAppApiException : AppException
+{
+    public WhatsAppApiException(string message) : base(message)
+    {
+    }
+}

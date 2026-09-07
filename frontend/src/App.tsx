@@ -2,9 +2,12 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { PlaceholderPage } from "./components/PlaceholderPage";
 import { AuthProvider } from "./contexts/AuthContext";
 import { AuthenticatedLayout } from "./layouts/AuthenticatedLayout";
+import { Contacts } from "./pages/Contacts/Contacts";
+import { Conversations } from "./pages/Conversations/Conversations";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { Login } from "./pages/Login/Login";
 import { RegistrarEmpresa } from "./pages/Login/RegistrarEmpresa";
+import { Settings } from "./pages/Settings/Settings";
 import { PrivateRoute } from "./routes/PrivateRoute";
 import { PublicRoute } from "./routes/PublicRoute";
 
@@ -20,14 +23,8 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route element={<AuthenticatedLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route
-              path="/conversas"
-              element={<PlaceholderPage titulo="Conversas" descricao="A integração com WhatsApp será implementada na SPEC-004 e SPEC-005." />}
-            />
-            <Route
-              path="/contatos"
-              element={<PlaceholderPage titulo="Contatos" descricao="O relacionamento com contatos será implementado na SPEC-003." />}
-            />
+            <Route path="/conversas" element={<Conversations />} />
+            <Route path="/contatos" element={<Contacts />} />
             <Route
               path="/crm"
               element={<PlaceholderPage titulo="CRM" descricao="Funil, negócios e Kanban serão implementados na SPEC-006." />}
@@ -52,10 +49,7 @@ function App() {
               path="/mais"
               element={<PlaceholderPage titulo="Mais" descricao="Acesso aos demais módulos no mobile." />}
             />
-            <Route
-              path="/configuracoes"
-              element={<PlaceholderPage titulo="Configurações" descricao="Configurações da empresa serão adicionadas progressivamente." />}
-            />
+            <Route path="/configuracoes" element={<Settings />} />
           </Route>
         </Route>
 

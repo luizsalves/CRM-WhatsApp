@@ -1,0 +1,23 @@
+.whatsapp-status {
+  color: var(--cor-primaria);
+  font-weight: 600;
+}
+
+.whatsapp-ajuda {
+  color: var(--cor-texto-secundario);
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.whatsapp-sucesso {
+  background: var(--cor-primaria-fraca);
+  color: var(--cor-primaria-forte);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.whatsapp-form {
+  max-width: 420px;
+}
