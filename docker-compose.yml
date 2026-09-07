@@ -1,4 +1,4 @@
-name: whatsapp-claude
+name: whatsclaude
 
 services:
   postgres:
