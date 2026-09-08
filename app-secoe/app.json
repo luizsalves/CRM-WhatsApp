@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "App Secoe",
+    "slug": "app-secoe",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#1B2A47",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Permitir que o App Secoe acesse suas fotos para anexar evidências.",
+          "cameraPermission": "Permitir que o App Secoe acesse a câmera para registrar evidências."
+        }
+      ]
+    ]
+  }
+}
